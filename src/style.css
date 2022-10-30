@@ -11,16 +11,18 @@ body {
   line-height: 24px;
   font-weight: 400;
   margin: 0;
-  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 320px;
+  min-width: 450px;
+  width: 70%;
   min-height: 100vh;
 }
 
 .start-page {
-  width: 100;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,7 +37,6 @@ body {
 }
 .quiz-page,
 .results-page {
-  max-width: 85%;
   display: flex;
   flex-direction: column;
   align-items: center;

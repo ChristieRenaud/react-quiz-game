@@ -3,6 +3,7 @@ import Quiz from './components/Quiz'
 import Results from './components/Results'
 import './style.css'
 import { nanoid } from 'nanoid'
+import { decode } from 'html-entities'
 
 export default function App() {
   const [questions, setQuestions] = useState([])
@@ -12,7 +13,9 @@ export default function App() {
   const [round, setRound] = useState(0)
 
   useEffect(() => {
-    fetch('https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple')
+    fetch(
+      'https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple',
+    )
       .then((res) => res.json())
       .then((data) => setQuestions(getQuestions(data.results)))
       .then(console.log(questions))
@@ -60,18 +63,19 @@ export default function App() {
     return data1.map((data) => {
       return {
         id: nanoid(),
-        question: data.question,
-        answers: scrambleArray([
-          ...data.incorrect_answers,
-          data.correct_answer,
-        ]),
-        correctAnswer: data.correct_answer,
+        question: decode(data.question),
+        answers: decodeArray(
+          scrambleArray([...data.incorrect_answers, data.correct_answer]),
+        ),
+        correctAnswer: decode(data.correct_answer),
         isAnswered: false,
         userAnswer: '',
       }
     })
   }
-
+  function decodeArray(array) {
+    return array.map((element) => decode(element))
+  }
   function calculateScore() {
     let count = 0
     questions.forEach((question) => {
