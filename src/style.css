@@ -13,7 +13,6 @@ body {
   margin: 0;
   margin-left: auto;
   margin-right: auto;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,8 +34,7 @@ body {
   margin-bottom: 0;
   font-family: Karla, Helvetica, Arial, sans-serif;
 }
-.quiz-page,
-.results-page {
+.quiz-page {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -83,21 +81,24 @@ button {
 }
 
 .answer-button {
+  display: flex;
+  align-items: center;
+  justify-items: center;
   min-width: 60px;
   border-radius: 8px;
   border: #4d5b9e solid 1px;
-  padding: 0;
+  padding: 5px 10px;
   margin-left: 6px;
   margin-right: 6px;
-  padding-left: 7px;
-  padding-right: 7px;
   cursor: pointer;
+  text-align: center;
 }
 
 .answer-button p {
+  display: inline-block;
   margin: auto;
-  text-align: center;
   font-weight: 500;
+  line-height: 14px;
 }
 
 .check-answers-button {
@@ -109,7 +110,7 @@ button {
   padding-bottom: 10px;
 }
 
-.results-page > .bottom-container {
+.results-bottom-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -117,14 +118,14 @@ button {
   margin-top: 20px;
 }
 
-.quiz-page > .bottom-container {
+.quiz-page-bottom-container {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   margin-top: 20px;
 }
-.bottom-container h2 {
+h2 {
   font-weight: 700;
   font-size: 13px;
   color: #293264;
@@ -146,6 +147,9 @@ button {
   color: #293264;
 }
 
+.unclickable {
+  pointer-events: none;
+}
 .user-answer {
   background-color: #f8bcbc;
   border: none;

@@ -29,14 +29,16 @@ export default function App() {
 
   function displayAnswers() {
     questions.forEach((question) => {
-      const results = document.querySelector('.results')
+      const results = document.querySelector('.quiz-questions')
       console.log(results)
       results.childNodes.forEach((result) => {
         if (question.id === result.querySelector('.answers').id) {
           result.querySelector('.answers').childNodes.forEach((child) => {
+            child.classList.add('unclickable')
             if (child.id === question.correctAnswer) {
               child.classList.add('correct-answer')
             } else if (child.id === question.userAnswer) {
+              child.classList.remove('selected-answer')
               child.classList.add('user-answer')
             } else {
               child.classList.add('inactive-answer')
@@ -96,7 +98,6 @@ export default function App() {
     } else {
       setQuizOver(true)
       calculateScore()
-      // displayAnswers()
     }
   }
 
@@ -118,29 +119,28 @@ export default function App() {
           <button onClick={startQuiz}>Start Quiz</button>
         </div>
       )}
-      {quizStarted && !quizOver && (
+      {quizStarted && (
         <div className="quiz-page">
           <Quiz questions={questions} setQuestions={setQuestions} />
-          <div className="bottom-container">
-            <h2 className="warning">Please answer all questions</h2>
-            <button className="check-answers-button" onClick={checkQuiz}>
-              Check Answers
-            </button>
-          </div>
-        </div>
-      )}
-      {quizOver && (
-        <div className="results-page">
-          <Results questions={questions} />
-          <div className="bottom-container">
-            <h2>
-              You scored {numberCorrect} correct answer
-              {numberCorrect === 1 ? '' : 's'}
-            </h2>
-            <button className="new-game-button" onClick={restartGame}>
-              Play Again
-            </button>
-          </div>
+          {!quizOver && (
+            <div className="quiz-bottom-container">
+              <h2 className="warning">Please answer all questions</h2>
+              <button className="check-answers-button" onClick={checkQuiz}>
+                Check Answers
+              </button>
+            </div>
+          )}
+          {quizOver && (
+            <div className="results-bottom-container">
+              <h2>
+                You scored {numberCorrect} correct answer
+                {numberCorrect === 1 ? '' : 's'}
+              </h2>
+              <button className="new-game-button" onClick={restartGame}>
+                Play Again
+              </button>
+            </div>
+          )}
         </div>
       )}
     </main>

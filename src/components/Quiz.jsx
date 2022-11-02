@@ -29,7 +29,7 @@ export default function Quiz(props) {
   }
 
   return (
-    <div>
+    <div className="quiz-questions">
       {props.questions.map((question) => (
         <div className="questions-and-answers" key={question.id}>
           <h2 className="questions">{question.question}</h2>
@@ -38,6 +38,7 @@ export default function Quiz(props) {
               <div
                 className="answer-button"
                 key={answer}
+                id={answer}
                 onClick={(event) => handleSelection(event)}
               >
                 <p>{answer}</p>
