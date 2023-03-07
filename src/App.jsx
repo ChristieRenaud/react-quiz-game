@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import Quiz from './components/Quiz'
-import Results from './components/Results'
 import './style.css'
 import { nanoid } from 'nanoid'
 import { decode } from 'html-entities'
@@ -95,6 +94,7 @@ export default function App() {
   function checkQuiz() {
     if (!allQuestionsAnswered()) {
       document.querySelector('.warning').style.display = 'block'
+      netlify
     } else {
       setQuizOver(true)
       calculateScore()
@@ -123,7 +123,7 @@ export default function App() {
         <div className="quiz-page">
           <Quiz questions={questions} setQuestions={setQuestions} />
           {!quizOver && (
-            <div className="quiz-bottom-container">
+            <div className="quiz-page-bottom-container">
               <h2 className="warning">Please answer all questions</h2>
               <button className="check-answers-button" onClick={checkQuiz}>
                 Check Answers
@@ -132,7 +132,7 @@ export default function App() {
           )}
           {quizOver && (
             <div className="results-bottom-container">
-              <h2>
+              <h2 className="results-text">
                 You scored {numberCorrect} correct answer
                 {numberCorrect === 1 ? '' : 's'}
               </h2>

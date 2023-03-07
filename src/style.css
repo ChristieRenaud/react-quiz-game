@@ -10,14 +10,13 @@ body {
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
-  margin: 0;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
   min-width: 450px;
-  width: 70%;
+  max-width: 600px;
+  width: 70vw;
   min-height: 100vh;
 }
 
@@ -26,9 +25,11 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
 
 .start-page h1 {
+  width: 100%;
   font-weight: 700;
   font-size: 31px;
   margin-bottom: 0;
@@ -71,6 +72,7 @@ button {
   font-family: Karla, Helvetica, Arial, sans-serif;
   font-size: 1em;
   font-weight: 700;
+  width: 100%;
 }
 
 .answers {
@@ -87,6 +89,7 @@ button {
   min-width: 60px;
   border-radius: 8px;
   border: #4d5b9e solid 1px;
+  background-color: #fff;
   padding: 5px 10px;
   margin-left: 6px;
   margin-right: 6px;
@@ -101,6 +104,24 @@ button {
   line-height: 14px;
 }
 
+@media (max-width: 475px) {
+  body {
+    width: 80%;
+    min-width: 100px;
+  }
+  .answers {
+    flex-direction: column;
+  }
+  .answer-button {
+    margin-bottom: 10px;
+    margin-right: 0;
+  }
+
+  .results-text {
+    line-height: 1.3;
+  }
+}
+
 .check-answers-button {
   border-radius: 10px;
   font-size: 10.24px;
@@ -108,6 +129,7 @@ button {
   height: 35px;
   padding-top: 10px;
   padding-bottom: 10px;
+  margin-bottom: 30px;
 }
 
 .results-bottom-container {
@@ -116,6 +138,7 @@ button {
   align-items: center;
   gap: 25px;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .quiz-page-bottom-container {
@@ -134,16 +157,13 @@ h2 {
 .new-game-button {
   border-radius: 10px;
   font-size: 10.24px;
-  width: 104px;
-  height: 30px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding: 1em 2em;
   margin-top: 0;
 }
 
 .selected-answer {
   background-color: #d6dbf5;
-  border: none;
+  border: #d6dbf5 solid 1px;
   color: #293264;
 }
 
@@ -152,13 +172,13 @@ h2 {
 }
 .user-answer {
   background-color: #f8bcbc;
-  border: none;
+  border: #f8bcbc solid 1px;
   color: #293264;
 }
 
 .correct-answer {
   background-color: #94d7a2;
-  border: none;
+  border: #94d7a2 solid 1px;
   color: #293264;
 }
 
@@ -170,5 +190,5 @@ h2 {
 .warning {
   display: none;
   font-size: 16px !important;
-  margin: 0;
+  margin: 10px 0;
 }
