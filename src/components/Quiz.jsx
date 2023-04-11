@@ -1,15 +1,13 @@
 import React from 'react'
-import { useState } from 'react'
 
 export default function Quiz(props) {
-  function handleSelection(event) {
+  function recordUserAnswer(event) {
     const questionId = event.currentTarget.parentNode.id
-    let userAnswer = event.currentTarget.childNodes[0].innerHTML
-    console.log(event)
+    let userAnswer = event.target.textContent
     props.setQuestions((oldQuestions) => {
       const newArray = []
       for (let i = 0; i < oldQuestions.length; i++) {
-        if (oldQuestions[i].id === questionId) {
+        if (i.toString() === questionId) {
           newArray.push({
             ...oldQuestions[i],
             isAnswered: true,
@@ -19,9 +17,12 @@ export default function Quiz(props) {
           newArray.push(oldQuestions[i])
         }
       }
-      console.log(newArray)
       return newArray
     })
+  }
+
+  function handleSelection(event) {
+    recordUserAnswer(event)
     event.currentTarget.parentNode.childNodes.forEach((child) =>
       child.classList.remove('selected-answer'),
     )
@@ -30,15 +31,14 @@ export default function Quiz(props) {
 
   return (
     <div className="quiz-questions">
-      {props.questions.map((question) => (
+      {props.questions.map((question, i) => (
         <div className="questions-and-answers" key={question.id}>
           <h2 className="questions">{question.question}</h2>
-          <div className="answers" id={question.id}>
+          <div className="answers" id={i}>
             {question.answers.map((answer) => (
               <div
                 className="answer-button"
                 key={answer}
-                id={answer}
                 onClick={(event) => handleSelection(event)}
               >
                 <p>{answer}</p>

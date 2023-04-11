@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import Quiz from './components/Quiz'
-import './style.css'
 import { nanoid } from 'nanoid'
 import { decode } from 'html-entities'
 
@@ -26,28 +25,6 @@ export default function App() {
     }
   }, [quizOver])
 
-  function displayAnswers() {
-    questions.forEach((question) => {
-      const results = document.querySelector('.quiz-questions')
-      console.log(results)
-      results.childNodes.forEach((result) => {
-        if (question.id === result.querySelector('.answers').id) {
-          result.querySelector('.answers').childNodes.forEach((child) => {
-            child.classList.add('unclickable')
-            if (child.id === question.correctAnswer) {
-              child.classList.add('correct-answer')
-            } else if (child.id === question.userAnswer) {
-              child.classList.remove('selected-answer')
-              child.classList.add('user-answer')
-            } else {
-              child.classList.add('inactive-answer')
-            }
-          })
-        }
-      })
-    })
-  }
-
   function scrambleArray(array) {
     let j
     let scrambledArray = []
@@ -60,8 +37,12 @@ export default function App() {
     return scrambledArray
   }
 
-  function getQuestions(data1) {
-    return data1.map((data) => {
+  function decodeArray(array) {
+    return array.map((element) => decode(element))
+  }
+
+  function getQuestions(starting_data) {
+    return starting_data.map((data) => {
       return {
         id: nanoid(),
         question: decode(data.question),
@@ -74,9 +55,28 @@ export default function App() {
       }
     })
   }
-  function decodeArray(array) {
-    return array.map((element) => decode(element))
+
+  function displayAnswers() {
+    questions.forEach((question, i) => {
+      const results = document.querySelector('.quiz-questions')
+      results.childNodes.forEach((result) => {
+        if (i.toString() === result.querySelector('.answers').id) {
+          result.querySelector('.answers').childNodes.forEach((child) => {
+            child.classList.add('unclickable')
+            if (child.firstChild.textContent === question.correctAnswer) {
+              child.classList.add('correct-answer')
+            } else if (child.firstChild.textContent === question.userAnswer) {
+              child.classList.remove('selected-answer')
+              child.classList.add('user-answer')
+            } else {
+              child.classList.add('inactive-answer')
+            }
+          })
+        }
+      })
+    })
   }
+
   function calculateScore() {
     let count = 0
     questions.forEach((question) => {
@@ -94,7 +94,6 @@ export default function App() {
   function checkQuiz() {
     if (!allQuestionsAnswered()) {
       document.querySelector('.warning').style.display = 'block'
-      netlify
     } else {
       setQuizOver(true)
       calculateScore()
